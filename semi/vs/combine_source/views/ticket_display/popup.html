@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>popup</title>
+    <link href="../combine_source/css/reset.css" rel="stylesheet">
+    <style>
+
+.ft_layer_popup.popup_alert {
+    width: 550px;
+    margin-left: -275px;
+   
+}
+.ft_layer_popup {
+    display: none;
+    background-color: #f6f6f4;
+    border: 5px solid #333;
+    position: absolute;
+    top: 10%;
+    width: 624px;
+    left: 50%;
+    margin-left: -312px;
+    z-index: 20000;
+    text-align: left;
+}
+.ft_layer_popup .hd {
+    border-bottom: 4px solid #333;
+    height: 51px !important;
+    background-color: #333 !important;
+    padding-top: 0 !important;
+    padding-left: 0 !important;
+    margin-bottom: 0 !important;
+}
+.ft_layer_popup .hd .title_area h4 {
+    
+    float: none !important;
+    width: auto !important;
+    margin-right: 0 !important;
+    background: none !important;
+    color: #f2f0e5;
+    border: 1px solid #707070;
+    height: 35px !important;
+    padding-top: 14px;
+    padding-left: 20px;
+    font-family: Nanum Gothic, 나눔고딕, Apple SD Gothic Neo, AppleGothic, 돋움, dotum, Sans-serif;
+    font-size: 22px;
+    line-height: 22px;
+    letter-spacing: -1px;
+    margin: 0;
+}
+
+.ft_layer_popup .hd a.layer_close {
+    display: block;
+    position: absolute;
+    top: 17px;
+    right: 20px;
+    width: 18px;
+    height: 18px;
+    background: url(http://img.cgv.co.kr/CGV_RIA/Ticket/image/reservation/popup/btn_close_x.png) no-repeat;
+    overflow: hidden;
+    text-indent: -1000px;
+}
+
+
+.ft_layer_popup .bd {
+    padding-top: 25px;
+    
+}
+.ft_layer_popup .bd {
+    max-height: 710px;
+    overflow-y: hidden;
+}
+.ft_layer_popup .bd {
+    position: relative;
+    margin: 0 auto;
+    padding: 21px 40px 20px 40px;
+    overflow: hidden;
+    background-color: #f6f6f4;
+}
+.ft_layer_popup.popup_alert .alert_msg {
+    color: #666;
+    text-align: left;
+    line-height: 16px;
+    font-family: 'Tahoma','돋움',dotum,Nanum Gothic,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
+.ft_layer_popup.popup_alert .alert_msg em {
+    font-style: normal;
+    font-weight: bold;
+}
+.ft_layer_popup a.btn {
+    margin-right: 3px;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: -1px;
+    font-weight: bold;
+    background-color: #333;
+    border-radius: 4px;
+    display: inline-block;
+    zoom: 1;
+    width: 54px;
+    height: 29px;
+    vertical-align: middle;
+}
+.ft_layer_popup .ft {
+    text-align: center;
+    padding: 30px 40px;
+    background-color: #f6f6f4;
+}
+.ft_layer_popup.popup_alert.w450 {
+    width: 450px;
+    margin-left: -225px;
+    margin-top: -280px;
+}
+.ft_layer_popup .bd {
+    max-height: 710px;
+    overflow-y: hidden;
+}
+.ft_layer_popup.popup_alert.w450 .bd .bd_comment {
+    display: block;
+    padding: 30px 20px 10px;
+    font-weight: 500;
+    font-size: 12px;
+    color: #222;
+    line-height: 19px;
+    text-align: center;
+}
+.ft_layer_popup.popup_alert.w450 .bd.p0 {
+    padding: 0;
+    
+}
+p {
+    display: block;
+    margin-block-start: -1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.ft_layer_popup .bd img {
+    width: 100%;
+    
+}
+.ft_layer_popup.popup_alert.w450 .ft {
+    padding: 6px 0 30px;
+}
+
+
+    </style>
+    <script>
+        function colseTabClick(){
+            window.close();
+        }
+    </script>
+</head>
+<body>
+    <div class="ft_layer_popup popup_alert w450 ko" style="top: 50%; position: absolute; display: block;">
+        <div class="hd">
+            <div class="title_area">
+                <h4 class="alert_title">관람안내</h4>
+            </div>
+            <a href="#" onclick="colseTabClick();" class="layer_close">닫기</a>
+        </div>
+        <div class="bd p0">
+            <p class="alert_msg"><p class="inner"><img src="http://img.cgv.co.kr/Support/Ticket/Notice/2022/16608065877840.png" width="440" height="238"><span class="bd_comment">상영관 내 취식가능<br>
+    (음식을 섭취하지 않을때는 마스크 착용 필수)</span></p></p>
+        </div>
+        <div class="ft">
+            <a title="확인" href="#" onclick="colseTabClick();" class="btn btn_ok">
+                <span>확인</span>
+            </a>
+            <a title="취소" href="#" onclick="return false;" class="btn btn_white btn_close" style="display: none;">
+                <span>취소</span>
+            </a>
+        </div>
+    </div>
+</body>
+</html>

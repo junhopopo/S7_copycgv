@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+#section_time_popup {
+    display: none;
+    position: absolute;
+    right: 2px;
+    top: 71px;
+    width: 383px;
+    height: 417px;
+}
+#section_time_popup .canvas {
+    position: absolute;
+    top: 20px;
+    width: 353px;
+    height: 387px;
+    padding-left: 10px;
+    padding-right: 10px;
+    border: solid 5px #333;
+    background-color: #f6f6f4;
+}
+#section_time_popup .canvas .sprite {
+    height: 295px;
+}
+#section_time_popup .canvas .buttons {
+    text-align: center;
+    margin-top: 24px;
+}
+#section_time_popup .canvas .sprite .time-option {
+    width: 306px;
+    height: 23px;
+    margin-left: 20px;
+    margin-top: 19px;
+    border-bottom: solid 2px #cfcdc3;
+}
+#section_time_popup .canvas .sprite .time-option span.morning {
+    float: left;
+    height: 14px;
+    padding-left: 18px;
+    background: url(http://img.cgv.co.kr/CGV_RIA/Ticket/image/reservation/icon/icon_morning_night.png) no-repeat left;
+    background-position: 0 0;
+}
+#section_time_popup .canvas .sprite .time-option span.night {
+    float: left;
+    height: 14px;
+    padding-left: 14px;
+    margin-left: 14px;
+    background: url(http://img.cgv.co.kr/CGV_RIA/Ticket/image/reservation/icon/icon_morning_night.png) no-repeat left;
+    background-position: 0 -20px;
+}
+#section_time_popup .canvas .sprite .time-list {
+    float: left;
+    width: 316px;
+    height: 255px;
+    margin-left: 20px;
+    margin-top: 15px;
+    overflow: hidden;
+}
+.nano {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+#section_time_popup .canvas .sprite .time-list .content {
+    width: 346px;
+}
+.nano .content.scroll-y {
+    overflow-x: hidden;
+}
+.nano .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: scroll;
+}
+#section_time_popup .canvas .sprite .time-list .theater:first-child {
+    margin-top: 0px;
+}
+#section_time_popup .canvas .sprite .time-list .theater {
+    float: left;
+    width: 306px;
+    border-bottom: solid 2px #cfcdc3;
+    margin-top: 16px;
+    overflow: hidden;
+}
+#section_time_popup .canvas .sprite .time-list .theater .title span.name {
+    color: #b54d15;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 6px;
+}
+#section_time_popup .canvas .sprite .time-list .theater .title span.floor {
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    margin-right: 5px;
+}
+#section_time_popup .canvas .sprite .time-list .theater .title span.seatcount {
+    color: #666;
+    font-size: 12px;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul {
+    width: 309px;
+    margin-top: 10px;
+    margin-bottom: 6px;
+    overflow: hidden;
+    padding-left: 0px;
+}
+dl, ul, ol {
+    list-style: none;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li {
+    position: relative;
+    float: left;
+    height: 25px;
+    line-height: 25px;
+    padding-bottom: 9px;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a {
+    display: block;
+    vertical-align: middle;
+    width: 103px;
+    height: 25px;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li.selected a span.time, #section_time_popup .canvas .sprite .time-list .theater ul li.preselect a span.time {
+    border-color: #000;
+    background-color: #333;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li.preselect a span.time {
+    color: #fff;
+    /* background-image: url(http://img.cgv.co.kr/CGV_RIA/Ticket/image/reservation/step2/timelist_item_selected.png); */
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a span.time {
+    width: 49px;
+    height: 23px;
+    background-color: #fff;
+    border: 1px solid #d6d3ce;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a span.time {
+    float: left;
+    color: #333;
+    font-size: 12px;
+    font-weight: bold;
+    font-family: Verdana;
+    /* background: url(http://img.cgv.co.kr/CGV_RIA/Ticket/image/reservation/step2/timelist_item_none.png) no-repeat; */
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li.selected a span.time span, #section_time_popup .canvas .sprite .time-list .theater ul li.preselect a span.time span {
+    margin: 1px;
+    border: 1px solid #5c5c5c;
+    width: 45px;
+    height: 19px;
+    line-height: 19px;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a span.time span {
+    display: block;
+    width: 49px;
+    height: 23px;
+    line-height: 23px;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a span.count {
+    float: left;
+    width: 49px;
+    height: 25px;
+    line-height: 25px;
+    text-align: left;
+    color: #3d7c35;
+    font-size: 12px;
+    padding-left: 3px;
+}
+.button {
+    display: inline;
+    border: none;
+    padding: 0 0;
+    background: none;
+    white-space: nowrap;
+    vertical-align: baseline;
+    text-align: center;
+    cursor: pointer;
+    text-decoration: none;
+    -webkit-user-drag: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+a {
+    text-decoration: none;
+    text-overflow: ellipsis;
+    -o-text-overflow: ellipsis;
+    color: #333;
+}
+.sreader {
+    display: block;
+    position: absolute;
+    left: -10000px;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a {
+    display: block;
+    vertical-align: middle;
+    width: 103px;
+    height: 25px;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a span.time {
+    width: 49px;
+    height: 23px;
+    background-color: #fff;
+    border: 1px solid #d6d3ce;
+}
+#section_time_popup .canvas .sprite .time-list .theater ul li a span.time span {
+    display: block;
+    width: 49px;
+    height: 23px;
+    line-height: 23px;
+}
+.nano .content.scroll-y {
+    overflow-x: hidden;
+}
+.nano .content {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    overflow: scroll;
+}
+.nano > .pane, .nano > .pane-y, .nano > .pane-x {
+    background: none;
+}
+.nano > .pane-y {
+    width: 10px;
+    top: 4px;
+    bottom: 4px;
+    right: 0;
+}.nano > .pane, .nano > .pane-y, .nano > .pane-x {
+   
+    position: absolute;
+    transition: .2s;
+    border-radius: 5px;
+}
+.nano > .pane > .slider, .nano > .pane-y > .slider-y, .nano > .pane-x > .slider-x {
+    background: rgba(0,0,0,.5);
+    position: relative;
+    margin: 0px 2px;
+    border-radius: 3px;
+}
+.nano .slider-y {
+    width: 6px;
+}
+.nano.has-scrollbar-y .pane-x {
+    margin-right: 6px;
+}
+.nano > .pane, .nano > .pane-y, .nano > .pane-x {
+    background: none;
+}
+.nano > .pane-x {
+    height: 10px;
+    left: 4px;
+    right: 4px;
+    bottom: 0;
+}
+
+.nano > .pane, .nano > .pane-y, .nano > .pane-x {
+    
+    position: absolute;
+    transition: .2s;
+    border-radius: 5px;
+}
+.nano > .pane-x > .slider-x {
+    margin: 2px 0;
+}
+.nano > .pane > .slider, .nano > .pane-y > .slider-y, .nano > .pane-x > .slider-x {
+    background: rgba(0,0,0,.5);
+    position: relative;
+    border-radius: 3px;
+}
+.nano .slider-x {
+    height: 6px;
+}
+#section_time_popup .canvas .buttons {
+    text-align: center;
+    margin-top: 24px;
+}
+#section_time_popup .canvas .buttons a {
+    margin-right: 3px;
+    text-decoration: none;
+    color: #fff;
+    letter-spacing: -1px;
+    font-weight: bold;
+    background-color: #333;
+    border-radius: 4px;
+    display: inline-block;
+    *display: inline;
+    zoom: 1;
+    width: 54px;
+    height: 29px;
+    vertical-align: middle;
+}
+#section_time_popup .corner {
+    position: absolute;
+    top: 0px;
+    right: 53px;
+    width: 32px;
+    height: 25px;
+    background: url(http://img.cgv.co.kr/CGV_RIA/Ticket/image/reservation/step2/section_time_popup_corner.png) no-repeat;
+}
+.morning{
+    color: #333;
+    font-family: 'Tahoma','돋움',dotum,Nanum Gothic,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
+.night{
+    color: #333;
+    font-family: 'Tahoma','돋움',dotum,Nanum Gothic,sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+}
+}
+}
+    </style>
+</head>
+<body>
+    <div class="section_time_popup" id="section_time_popup" style="display: block;">
+						<div class="canvas">
+							<div class="sprite">
+								<div class="time-option">
+									<span class="morning">조조</span><span class="night">심야</span>
+								</div>
+								
+							<div class="time-list nano has-scrollbar has-scrollbar-y"><div class="content scroll-y" tabindex="-1" style="right: -17px;"><div class="theater" screen_cd="014" movie_cd="20031139"><span class="title"><span class="name">SCREENX 2D</span><span class="floor">4관[SCREENX] 8층</span><span class="seatcount">(총124석)</span></span><ul><li play_start_tm="1400" screen_cd="014" movie_cd="20031139" play_num="3" class="preselect"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>14:00</span></span><span class="count">70석</span><div class="sreader">종료시간 16:51</div><span class="sreader mod"></span></a></li><li play_start_tm="1720" screen_cd="014" movie_cd="20031139" play_num="4"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>17:20</span></span><span class="count">80석</span><div class="sreader">종료시간 20:11</div><span class="sreader mod"></span></a></li><li play_start_tm="2030" screen_cd="014" movie_cd="20031139" play_num="5"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>20:30</span></span><span class="count">114석</span><div class="sreader">종료시간 23:21</div><span class="sreader mod"></span></a></li></ul></div><div class="theater" screen_cd="002" movie_cd="20030268"><span class="title"><span class="name">2D</span><span class="floor">2관 6층 (Laser)</span><span class="seatcount">(총124석)</span></span><ul><li play_start_tm="1500" screen_cd="002" movie_cd="20030268" play_num="3"><a class="button" href="#" onclick="return false;"><span class="time"><span>15:00</span></span><span class="count">32석</span><div class="sreader">종료시간 17:51</div><span class="sreader mod"></span></a></li><li play_start_tm="1810" screen_cd="002" movie_cd="20030268" play_num="4" class=""><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>18:10</span></span><span class="count">81석</span><div class="sreader">종료시간 21:01</div><span class="sreader mod"> 선택됨</span></a></li><li play_start_tm="2120" screen_cd="002" movie_cd="20030268" play_num="5"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>21:20</span></span><span class="count">113석</span><div class="sreader">종료시간 24:11</div><span class="sreader mod"></span></a></li></ul></div><div class="theater" screen_cd="003" movie_cd="20030268" style="border: none;"><span class="title"><span class="name">2D</span><span class="floor">3관 8층</span><span class="seatcount">(총172석)</span></span><ul><li play_start_tm="0940" screen_cd="003" movie_cd="20030268" play_num="1" class="morning"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>09:40</span></span><span class="count">151석</span><div class="sreader">종료시간 12:31</div><span class="sreader mod"> 조조</span></a></li><li play_start_tm="1250" screen_cd="003" movie_cd="20030268" play_num="2"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>12:50</span></span><span class="count">76석</span><div class="sreader">종료시간 15:41</div><span class="sreader mod"></span></a></li><li play_start_tm="1600" screen_cd="003" movie_cd="20030268" play_num="3"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>16:00</span></span><span class="count">45석</span><div class="sreader">종료시간 18:51</div><span class="sreader mod"></span></a></li><li play_start_tm="1910" screen_cd="003" movie_cd="20030268" play_num="4"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>19:10</span></span><span class="count">107석</span><div class="sreader">종료시간 22:01</div><span class="sreader mod"></span></a></li><li play_start_tm="2220" screen_cd="003" movie_cd="20030268" play_num="5"><a class="button" href="#" onclick="return false;" title=""><span class="time"><span>22:20</span></span><span class="count">159석</span><div class="sreader">종료시간 25:11</div><span class="sreader mod"></span></a></li></ul></div></div><div class="pane pane-y" style="opacity: 1; visibility: visible;"><div class="slider slider-y" style="height: 50px; top: 0px;"></div></div><div class="pane pane-x" style="display: none; opacity: 1; visibility: visible;"><div class="slider slider-x" style="width: 50px;"></div></div></div></div>
+							<div class="buttons">
+								<a href="#" onclick="return false;" class="btn_ok"><span>확인</span></a>
+								<a href="#" onclick="return false;" class="btn_cancel"><span>취소</span></a>
+								<a href="#" onclick="return false;" class="sreader" onfocus="ticketStep2TimeSelectPopupHide();">시간표 변경 팝업 닫기</a>
+							</div>
+						</div>
+						<div class="corner"></div>
+					</div>
+</body>
+</html>
