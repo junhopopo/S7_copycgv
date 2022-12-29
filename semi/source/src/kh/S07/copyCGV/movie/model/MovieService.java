@@ -13,7 +13,12 @@ public class MovieService {
 		int totalInsertCnt = 0;
 		Connection conn = JdbcTemplate.getConnection();
 		for(MovieVo vo : volist) {
+			// movieInsert 하고 moviecd
 			result = dao.insert(conn, vo);
+			// searchActor 배우이름으로 검색해서 cd 알아와서
+			// Actorcd=0이라면 insertActor 하고 그때 cd를 return 해서 알아오기
+			// Actor와 moviecd insertMVActor 추가
+			
 			if(result < 1) {
 				System.out.println("insert  실패: "+ vo);
 			} else {
@@ -58,10 +63,10 @@ public class MovieService {
 		return volist;
 	}
 //	selectOne - 상세조회
-	public MovieVo selectOne(int mcode){
+	public MovieVo selectOne(String moviecd){
 		MovieVo vo = null;
 		Connection conn = JdbcTemplate.getConnection();
-		vo = dao.selectOne(conn, mcode);
+		vo = dao.selectOne(conn, moviecd);
 		JdbcTemplate.close(conn);
 		return vo;
 	}

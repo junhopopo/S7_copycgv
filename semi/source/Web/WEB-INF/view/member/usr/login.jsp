@@ -1,3 +1,6 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,6 +11,7 @@
 	href="https://img.cgv.co.kr/theater_img/favicon.ico"
 	type="image/x-icon" />
 <title>CGV &lt; 로그인 | 영화 그 이상의 감동. CGV</title>
+<script	src="<%=request.getContextPath()%>/resources/js/jquery-3.6.1.js"></script>
 <script type="text/javascript">
 	$(document)
 			.ready(
@@ -147,7 +151,6 @@
 					</h1>
 					<ul class="memberInfo_wrap">
 						<!-- Advertisement -->
-
 						<div class="ad-partner">
 							<a
 								href="http://www.cgv.co.kr/culture-event/event/detailViewUnited.aspx?seq=31426&menu=006">
@@ -156,10 +159,7 @@
 								alt="현대M포인트" />
 							</a>
 						</div>
-
 						<!-- /Advertisement -->
-
-
 						<li><a
 							href="/user/login/?returnURL=https%3a%2f%2fwww.cgv.co.kr%2fuser%2flogin%2fdefault.aspx%3freturnURL%3dhttps%3a%2f%2fwww.cgv.co.kr%2fdefault.aspx"><img
 								src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"
@@ -770,16 +770,15 @@
 						</ul>
 						<div class="box-login">
 							<h3 class="hidden">회원 로그인</h3>
-							<form id="form1" method="post" action="#" novalidate="novalidate"
-								onsubmit="return false">
+							<form id="form10" method="post" action="<%=request.getContextPath() %>/login.do" >
 								<fieldset>
 									<legend>회원 로그인</legend>
 									<p>아이디 비밀번호를 입력하신 후, 로그인 버튼을 클릭해 주세요.</p>
 									<div class="login">
-										<input type="text" title="아이디" id="txtUserId" name="txtUserId"
+										<input type="text" title="아이디" id="txtUserId" name="memail"
 											data-title="아이디를 " data-message="입력하세요." required="required" />
 										<input type="password" title="패스워드" id="txtPassword"
-											name="txtPassword" data-title="패스워드를 " data-message="입력하세요."
+											name="mpwd" data-title="패스워드를 " data-message="입력하세요."
 											required="required" />
 									</div>
 									<div class="save-id">

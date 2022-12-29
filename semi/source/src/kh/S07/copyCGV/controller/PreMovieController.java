@@ -11,13 +11,13 @@ import javax.servlet.http.HttpServletResponse;
  * Servlet implementation class MainController
  */
 @WebServlet("/premovie")
-public class preMovieController extends HttpServlet {
+public class PreMovieController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public preMovieController() {
+    public PreMovieController() {
         super();
         // TODO Auto-generated constructor stub
     }

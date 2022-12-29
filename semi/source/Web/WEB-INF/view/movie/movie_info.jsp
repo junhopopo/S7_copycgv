@@ -39,7 +39,7 @@
 <%@include file="/WEB-INF/view/component/category.jsp"%>
 	</div>
     <div style="clear: both"></div>
-
+[[[[[[[${movievo }]]]]]]]]
     <div id="contents" class="">
       <!-- 실컨텐츠 시작 -->
       <div class="wrap-movie-detail" id="select_main">

@@ -163,7 +163,7 @@
 								</div>
 
 								<div class="movieChart_btn_wrap">
-									<a href="../movie/movie_info.jsp"
+									<a href="<%=request.getContextPath() %>/movieinfo?moviecd=${vo.moviecd }"
 										onclick="gaEventLog('PC_메인', '무비차트_영화상세', '블랙 팬서-와칸다 포에버');"
 										class="btn_movieChart_detail">상세보기</a>
 									<a href="../ticket/ticket_main.jsp"

@@ -22,14 +22,15 @@
                   width="130"
               /></a>
             </li>
-            <li>
-              <a href="#"
+            
+            <%-- <li>
+              <a href="<%=request.getContextPath() %>/login"
                 ><img
                   src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"
                   width="45"
                 /><br />로그인</a
-              >
-            </li>
+              > 
+				</li>
             <li>
               <a href="#"
                 ><img
@@ -37,7 +38,34 @@
                   width="45"
                 /><br />회원가입</a
               >
-            </li>
+            </li> --%>
+            
+            		<c:choose>
+						<c:when test="${empty loginSsInfo}">
+							<li>
+							<a href="${pageContext.request.contextPath }/login"><img
+			                  src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"
+			                  width="45"
+			                /><br />로그인</a>
+							</li>
+							<li>
+							<a href="${pageContext.request.contextPath }/join"><img
+			                  src="https://img.cgv.co.kr/R2014/images/common/ico/loginJoin.png"
+			                  width="45"
+			                /><br />회원가입</a>
+							</li>
+						</c:when>
+						<c:otherwise>
+							<li>
+                    		<%-- ${loginSsInfo.mname } --%>
+							<a href="${pageContext.request.contextPath }/logout"><img
+			                  src="https://img.cgv.co.kr/R2014/images/common/ico/loginPassword.png"
+			                  width="45"
+			                /><br />로그아웃</a>
+							</li>
+						</c:otherwise>
+					</c:choose>
+
             <li>
               <a href="#"
                 ><img

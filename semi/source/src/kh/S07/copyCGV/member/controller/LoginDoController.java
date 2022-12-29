@@ -30,17 +30,26 @@ public class LoginDoController extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		String memail = request.getParameter("memail");
 		String mpwd = request.getParameter("mpwd");
-		
+		System.out.println(memail+","+mpwd);
 		MemberService service = new MemberService();
 		MemberVo loginInfo = service.login(memail, mpwd);
+		if(loginInfo == null) {
+			System.out.println("로그인 실패");
+			response.sendRedirect(request.getContextPath()+"/login");
+			return;
+		}
 		if(loginInfo.getMauthcode().equals("1") ) {
 			System.out.println("로그인 성공");
 			request.getSession().setAttribute("loginSsInfo", loginInfo);
 			response.sendRedirect(request.getContextPath()+"/main");
 		} else if (loginInfo.getMauthcode().equals("0") ) {
-			System.out.println("로그인 실패");
+			System.out.println("로그인 not auth");
+			response.sendRedirect(request.getContextPath()+"/login");
+//			request.setAttribute("msg", "로그인 not auth");
+//			request.getRequestDispatcher("error.jsp....dlf").forward(request, response);
 		} else {
 			System.out.println("이메일을 통한 인증코드를 확인");
+			response.sendRedirect(request.getContextPath()+"/login");
 		}
 		
 	}
