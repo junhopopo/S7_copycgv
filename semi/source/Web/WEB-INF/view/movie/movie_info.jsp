@@ -14,10 +14,8 @@
     <title>무비차트 &lt; 무비차트 | 영화 그 이상의 감동. CGV</title>
     <link rel="stylesheet" href="../../../Resources/css/reset.css" type="text/css" />
     <link rel="stylesheet" href="../../../Resources/css/movie_content.css" />
-    <script src="../../../Resources/js/includeHTML.js"></script>
     <script src="../../script/jquery-3.6.1.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="../../../Resources/js/includeHTML.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
     <script>
@@ -36,18 +34,10 @@
     </script>
   </head>
   <body>
-    <div id="component">
-      <div include-html="../../component/header.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-      <div include-html="../../component/category.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-    </div>
+	<div id="component">
+<%@include file="/WEB-INF/view/component/header.jsp"%>
+<%@include file="/WEB-INF/view/component/category.jsp"%>
+	</div>
     <div style="clear: both"></div>
 
     <div id="contents" class="">
@@ -597,7 +587,7 @@
         </div>
       </div>
     </div>
-    <div include-html="../../component/footer.jsp">
+<%@include file="/WEB-INF/view/component/footer.jsp"%>
       <script>
         includeHTML();
       </script>

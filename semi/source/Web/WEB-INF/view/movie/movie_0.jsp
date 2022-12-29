@@ -12,64 +12,26 @@
       type="image/x-icon"
     />
     <title>무비차트 &lt; 무비차트 | 영화 그 이상의 감동. CGV</title>
-    <script src="../../../Resources/js/includeHTML.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <link rel="stylesheet" href="../../../Resources/css/webcontent.css" />
-    <link rel="stylesheet" href="../../../Resources/css/movie_layout.css" />
-
-    <link rel="stylesheet" href="../../../Resources/css/reset.css" type="text/css" />
-
     <!-- view script  -->
-    <script
-      type="text/javascript"
-      src="https://img.cgv.co.kr/R2014/js/jquery-1.10.2.min.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      type="text/css"
-      href="https://img.cgv.co.kr/resource_pc/css/cgv.min.css"
-    />
-    <script
-      type="text/javascript"
-      src="https://img.cgv.co.kr/resource_pc/js/cgvUi.js"
-    ></script>
-    <link
-      rel="stylesheet"
-      media="all"
-      type="text/css"
-      href="https://img.cgv.co.kr/R2014/css/swiper-bundle.min.css"
-    />
-    <script>
-        type="text/javascript"
-        src="https://img.cgv.co.kr/R2014/js/swiper.min.js"
-      >
-    </script>
-    <link
-      rel="stylesheet"
-      media="all"
-      type="text/css"
-      href="https://img.cgv.co.kr/R2014/css/preegg.css"
-    />
-    <link
-      rel="stylesheet"
-      media="all"
-      type="text/css"
-      href="https://img.cgv.co.kr/R2014/css/eggupdate.css"
-    />
+<script type="text/javascript"	src="https://img.cgv.co.kr/resource_pc/js/cgvUi.js"></script>
+<script type="text/javascript"	src="https://img.cgv.co.kr/R2014/js/swiper.min.js"></script>
+<link rel="stylesheet" type="text/css"	href="https://img.cgv.co.kr/resource_pc/css/cgv.min.css" />
+<link rel="stylesheet" media="all" type="text/css"	href="https://img.cgv.co.kr/R2014/css/swiper-bundle.min.css" />
+<link rel="stylesheet" media="all" type="text/css"	href="https://img.cgv.co.kr/R2014/css/preegg.css" />
+<link rel="stylesheet" media="all" type="text/css"	href="https://img.cgv.co.kr/R2014/css/eggupdate.css" />
+
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css"	type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css"	type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/category.css"	type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/footer.css"	type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/webcontent.css"	type="text/css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/movie_layout.css" />
   </head>
   <body>
-    <div id="component">
-      <div include-html="../../component/header.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-      <div include-html="../../component/category.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-    </div>
+	<div id="component">
+<%@include file="/WEB-INF/view/component/header.jsp"%>
+<%@include file="/WEB-INF/view/component/category.jsp"%>
+	</div>
 
     <div style="clear: both"></div>
     <div id="contents" class="">
@@ -929,11 +891,9 @@
         </div>
       </div>
     </div>
-    <div include-html="../../component/footer.jsp">
-      <script>
-        includeHTML();
-      </script>
-    </div>
+
+
+<%@include file="/WEB-INF/view/component/footer.jsp"%>
     <script type="text/javascript">
       (function ($) {
         $(function () {

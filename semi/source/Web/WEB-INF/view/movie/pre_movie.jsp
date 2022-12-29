@@ -12,8 +12,6 @@
       type="image/x-icon"
     />
     <title>무비차트 &lt; 무비차트 | 영화 그 이상의 감동. CGV</title>
-    <script src="../../../Resources/js/includeHTML.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <link rel="stylesheet" href="../../../Resources/css/reset.css" />
     <link rel="stylesheet" href="../../../Resources/css/movie_layout.css" />
 
@@ -55,18 +53,10 @@
     />
   </head>
   <body>
-    <div id="component">
-      <div include-html="../../component/header.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-      <div include-html="../../component/category.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-    </div>
+	<div id="component">
+<%@include file="/WEB-INF/view/component/header.jsp"%>
+<%@include file="/WEB-INF/view/component/category.jsp"%>
+	</div>
     <div id="contents" class="">
       <div class="wrap-movie-chart">
         <div class="tit-heading-wrap">

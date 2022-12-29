@@ -12,9 +12,6 @@
       type="image/x-icon"
     />
     <title>예매 | 영화 그 이상의 감동. CGV</title>
-    <script src="../../../Resources/js/includeHTML.js"></script>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <script src="../../../Resources/js/includeHTML.js"></script>
     <link rel="stylesheet" href="../../../Resources/css/reset.css" />
     <link rel="stylesheet" href="../../../Resources/css/reserve.css" />
     <script src="../../script/jquery-3.6.1.js"></script>
@@ -115,18 +112,10 @@
     </script>
   </head>
   <body>
-    <div id="component">
-      <div include-html="../../component/header.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-      <div include-html="../../component/category.jsp">
-        <script>
-          includeHTML();
-        </script>
-      </div>
-    </div>
+	<div id="component">
+<%@include file="/WEB-INF/view/component/header.jsp"%>
+<%@include file="/WEB-INF/view/component/category.jsp"%>
+	</div>
     <div id="ticket">
       <button
         type="button"
@@ -300,7 +289,7 @@
     </div>
     <div style="clear: both"></div>
 
-    <div include-html="../../component/footer.jsp">
+<%@include file="/WEB-INF/view/component/footer.jsp"%>
       <script>
         includeHTML();
       </script>
