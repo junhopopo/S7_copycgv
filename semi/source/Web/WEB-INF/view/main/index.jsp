@@ -85,6 +85,7 @@
 			},
 		});
 	});
+	
 </script>
 <script type="text/javascript">
 	$(document).ready(function() {
@@ -145,7 +146,7 @@
 						<div class="swiper-slide swiper-slide-movie">
 							<div class="img_wrap" data-scale="false">
 								<img
-									src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000086/86119/86119_320.jpg"
+									src="https://dummyimage.com/170x234/f2f259/1d1e26"
 									alt="블랙 팬서-와칸다 포에버" />
 
 								<div class="movieAgeLimit_wrap">

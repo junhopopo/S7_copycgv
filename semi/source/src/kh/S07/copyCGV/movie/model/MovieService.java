@@ -71,6 +71,15 @@ public class MovieService {
 		return vo;
 	}
 
+	public MovieVo selectNm(String parameter) {
+		MovieVo vonm = null;
+		Connection conn = JdbcTemplate.getConnection();
+		String movienm = null;
+		vonm = dao.selectNm(conn, movienm);
+		JdbcTemplate.close(conn);
+		return vonm;
+	}
+
 	
 	
 	

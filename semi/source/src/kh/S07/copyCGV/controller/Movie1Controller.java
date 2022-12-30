@@ -10,14 +10,14 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Servlet implementation class MainController
  */
-@WebServlet("/movie_3")
-public class movie3Controller extends HttpServlet {
+@WebServlet("/movie_1")
+public class Movie1Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public movie3Controller() {
+    public Movie1Controller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -27,7 +27,7 @@ public class movie3Controller extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		System.out.println("/main 컨트롤러");
-		String viewPage="/WEB-INF/view/movie/movie_3.jsp";
+		String viewPage="/WEB-INF/view/movie/movie_1.jsp";
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 

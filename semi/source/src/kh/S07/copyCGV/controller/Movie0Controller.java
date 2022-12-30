@@ -7,20 +7,17 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.S07.copyCGV.movie.model.MovieService;
-import kh.S07.copyCGV.movie.model.MovieVo;
-
 /**
  * Servlet implementation class MainController
  */
-@WebServlet("/movieinfo")
-public class MovieInfoController extends HttpServlet {
+@WebServlet("/movie_0")
+public class Movie0Controller extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MovieInfoController() {
+    public Movie0Controller() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -29,16 +26,8 @@ public class MovieInfoController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		System.out.println("/movieinfo 컨트롤러");
-		String moviecd = request.getParameter("moviecd");
-		String movienm = request.getParameter("movienm");
-		System.out.println("moviecd:" + moviecd);
-		MovieVo vo = new MovieService().selectOne(moviecd);
-		System.out.println("moviecd:" + movienm);
-		MovieVo vonm = new MovieService().selectNm(movienm);
-		request.setAttribute("movievo", vo);
-		request.setAttribute("movienm", vonm);
-		String viewPage="/WEB-INF/view/movie/movie_info.jsp";
+		System.out.println("/movie_0 컨트롤러");
+		String viewPage="/WEB-INF/view/movie/movie_0.jsp";
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 

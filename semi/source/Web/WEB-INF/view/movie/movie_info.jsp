@@ -12,9 +12,12 @@
       type="image/x-icon"
     />
     <title>무비차트 &lt; 무비차트 | 영화 그 이상의 감동. CGV</title>
-    <link rel="stylesheet" href="../../../Resources/css/reset.css" type="text/css" />
-    <link rel="stylesheet" href="../../../Resources/css/movie_content.css" />
-    <script src="../../script/jquery-3.6.1.js"></script>
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/reset.css" type="text/css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/header.css"	type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/category.css"	type="text/css" />
+<link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/footer.css"	type="text/css" />
+    <link rel="stylesheet" href="<%=request.getContextPath() %>/resources/css/movie_content.css" />
+    <script src="<%=request.getContextPath() %>/script/jquery-3.6.1.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="//code.jquery.com/jquery-1.10.2.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js"></script>
@@ -39,7 +42,7 @@
 <%@include file="/WEB-INF/view/component/category.jsp"%>
 	</div>
     <div style="clear: both"></div>
-[[[[[[[${movievo }]]]]]]]]
+<[[[[[[[${movievo }]]]]]]]]
     <div id="contents" class="">
       <!-- 실컨텐츠 시작 -->
       <div class="wrap-movie-detail" id="select_main">
@@ -62,7 +65,7 @@
           </div>
           <div class="box-contents">
             <div class="title">
-              <strong>블랙 팬서-와칸다 포에버</strong>
+              <strong>[[[[[[[[[${movienm }]]]]]]]]]]</strong>
               <em class="round lightblue"><span>현재상영중</span></em>
               <p>Black Panther: Wakanda Forever</p>
             </div>

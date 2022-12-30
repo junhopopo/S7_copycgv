@@ -186,4 +186,28 @@ public class MovieDao {
 		
 		return vo;
 	}
+	
+	public MovieVo selectNm(Connection conn, String moviecd){
+		MovieVo vonm = null;
+		String query = "select MOVIENM from movie where MOVIECD=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, moviecd);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				//PK로 where했으므로 단일행 결과물로 while문 작성하지 않음
+				vonm = new MovieVo();
+				vonm.setMovienm(rs.getString("MOVIENM"));
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		
+		return vonm;
+	}
 }
