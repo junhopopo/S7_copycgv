@@ -105,3 +105,19 @@
 /* [class|="wrap-movie"][class*="chart"]{} */
 [class|="wrap-movie"][class*="chart"] .tab-menu-line{ margin-top:20px;}
 [class|="wrap-movie"][class*="chart"] .sect-movie-chart{ margin-top:30px;}
+
+/* 로그인 */
+.box-login{padding:30px 0 0 132px; border-bottom:2px solid #898987; height: 266px;}
+.btn_loginNaver{display:inline-block; margin-top:35px;}
+
+/* 모서리 둥근 탭메뉴 */
+.tab-menu-round{ clear:both; background:url('../images/common/bg/bg_tabmenu_grade.gif') 0 bottom repeat-x;}
+.tab-menu-round:after{ content:''; clear:both; display:block;}
+*+html .tab-menu-round{ zoom:1;}
+.tab-menu-round > li{ float:left; position:relative; line-height:37px; margin-left:1px; background:#898987; color:#fdfcf0; text-align:center; }
+.tab-menu-round > li:before, .tab-menu-round > li:after{content:''; position:absolute; top:0; display:block; width:5px; height:5px; background:url('../images/common/bg/bg_tab_corner.png') no-repeat; }
+.tab-menu-round > li:before{ left:0; background-position:0 0; }
+.tab-menu-round > li:after{ right:0; background-position:-5px 0; }
+.tab-menu-round > li:first-child{ margin-left:0;}
+.tab-menu-round > li > a{ display:block; color:#ffffff; font-size:13px; font-weight:500;}
+.tab-menu-round > li.on{ background:#fb4357;}

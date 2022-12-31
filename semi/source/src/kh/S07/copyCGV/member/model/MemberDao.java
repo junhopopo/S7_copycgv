@@ -56,7 +56,7 @@ public class MemberDao {
 			if(rs.next()) {
 				//PK로 where했으므로 단일행 결과물로 while문 작성하지 않음
 				vo = new MemberVo();
-				vo.setMcode(rs.getInt("mcode"));
+				vo.setMcode(rs.getString("mcode"));
 				vo.setMemail(rs.getString("memail"));
 				vo.setMname(rs.getString("mname"));
 				vo.setMnick(rs.getString("mnick"));

@@ -187,19 +187,19 @@ public class MovieDao {
 		return vo;
 	}
 	
-	public MovieVo selectNm(Connection conn, String moviecd){
-		MovieVo vonm = null;
+	public String searchMovienm(Connection conn, String moviecd){
+		String movienm = null;
+		//PK로 where했으므로 단일행 결과물
+		// * 속도 저하의 원인. 필요한 컬럼명을 나열함.
 		String query = "select MOVIENM from movie where MOVIECD=?";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
 			pstmt = conn.prepareStatement(query);
-			pstmt.setString(1, moviecd);
+			pstmt.setString(1, movienm);
 			rs = pstmt.executeQuery();
 			if(rs.next()) {
-				//PK로 where했으므로 단일행 결과물로 while문 작성하지 않음
-				vonm = new MovieVo();
-				vonm.setMovienm(rs.getString("MOVIENM"));
+				movienm = rs.getString(1);
 			}
 		}catch (Exception e) {
 			e.printStackTrace();
@@ -207,7 +207,253 @@ public class MovieDao {
 			JdbcTemplate.close(rs);
 			JdbcTemplate.close(pstmt);
 		}
-		
-		return vonm;
+		System.out.println(">>>>searchActor Return:"+ movienm);
+		return movienm;
 	}
+	
+	//////////////////////////////////////////////
+	// 배우 찾기 searchActor : return 찾은 actorcd
+	public String searchActor(Connection conn, String actornm){
+		String actorcd = null;
+		//PK로 where했으므로 단일행 결과물
+		// * 속도 저하의 원인. 필요한 컬럼명을 나열함.
+		String query = "select ACTORCD from ACTOR where ACTORNM=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, actornm);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				actorcd = rs.getString(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>searchActor Return:"+ actorcd);
+		return actorcd;
+	}
+	// 감독 찾기 searchDirector : return 찾은 directorcd
+	public String searchDirector(Connection conn, String directornm){
+		String directorcd = null;
+		//PK로 where했으므로 단일행 결과물
+		// * 속도 저하의 원인. 필요한 컬럼명을 나열함.
+		String query = "select directorcd from director where directornm=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, directornm);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				directorcd = rs.getString(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>searchDirector Return:"+ directorcd);
+		return directorcd;
+	}
+	// 제작사 찾기 searchCompany : return 찾은 갯수 0/1
+	public int searchCompany(Connection conn, String companynm){
+		int resultCnt = 0;
+		//PK로 where했으므로 단일행 결과물
+		// * 속도 저하의 원인. 필요한 컬럼명을 나열함.
+		String query = "select count(companynm) from company where companynm=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, companynm);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				resultCnt = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>searchCompany Return:"+ resultCnt);
+		return resultCnt;
+	}
+	// 장르 찾기 searchGenre : return 찾은 갯수 0/1
+	public int searchGenre(Connection conn, String genrenm){
+		int resultCnt = 0;
+		//PK로 where했으므로 단일행 결과물
+		// * 속도 저하의 원인. 필요한 컬럼명을 나열함.
+		String query = "select count(genrenm) from genre where genrenm=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, genrenm);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				resultCnt = rs.getInt(1);
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>searchGenre Return:"+ resultCnt);
+		return resultCnt;
+	}
+	// insertActor : return 성공시 1 / 실패시 0
+	public int insertActor(Connection conn, ActorVo vo) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO ACTOR (ACTORCD, ACTORNM, ACTORNMEN) VALUES ((select nvl(max(to_number(ACTORCD)),0)+1 from ACTOR),'"+vo.getActornm()+"','"+vo.getActornmen()+"')";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("#########"+vo);
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertActor Return:"+ result);
+		return result;
+	}
+	// insertDirector : return 성공시 1 / 실패시 0
+	public int insertDirector(Connection conn, DirectorVo vo) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO Director (DirectorCD, DirectorNM, DirectorNMEN) VALUES ((select nvl(max(to_number(Directorcd)),0)+1 from Director),'"+vo.getDirectornm()+"','"+vo.getDirectornmen()+"')";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertDirector Return:"+ result);
+		return result;
+	}
+	// insertCompany : return 성공시 1 / 실패시 0
+	public int insertCompany(Connection conn, String companynm) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO company (companynm) VALUES ('"+companynm+"')";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertCompany Return:"+ result);
+		return result;
+	}
+	// insertGenre : return 성공시 1 / 실패시 0
+	public int insertGenre(Connection conn, String genrenm) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO genre (genrenm) VALUES ('"+genrenm+"')";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertGenre Return:"+ result);
+		return result;
+	}
+////////////////////////
+	// insertMVActor : return 성공시 1 / 실패시 0
+	public int insertMVActor(Connection conn, String moviecd, String actorcd) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO MVACTOR (moviecd, actorcd) VALUES (?,?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, moviecd);
+			pstmt.setString(2, actorcd);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertMVActor Return:"+ result);
+		return result;
+	}
+	// insertMVDirector : return 성공시 1 / 실패시 0
+	public int insertMVDirector(Connection conn, String moviecd, String directorcd) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO MVDirector (moviecd, directorcd) VALUES (?,?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, moviecd);
+			pstmt.setString(2, directorcd);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertMVDirector Return:"+ result);
+		return result;
+	}
+	// insertMVCompany : return 성공시 1 / 실패시 0
+	public int insertMVCompany(Connection conn, String moviecd, String companynm) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO MVcompany (moviecd, companynm) VALUES (?,?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, moviecd);
+			pstmt.setString(2, companynm);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			// 같은 회사가 2번 나오는 경우가 있어 오류가 자주 발생함.
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertMVCompany Return:"+ result);
+		return result;
+	}
+	// insertMVGenre : return 성공시 1 / 실패시 0
+	public int insertMVGenre(Connection conn, String moviecd, String genrenm) {
+		int result = 0;
+		String sql = "INSERT ";
+		sql += " INTO MVgenre (moviecd, genrenm) VALUES (?,?)";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, moviecd);
+			pstmt.setString(2, genrenm);
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>insertMVGenre Return:"+ result);
+		return result;
+	}
+	
 }

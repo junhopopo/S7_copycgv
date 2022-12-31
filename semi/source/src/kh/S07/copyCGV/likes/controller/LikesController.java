@@ -35,7 +35,7 @@ public class LikesController extends HttpServlet {
 		
 		LikesVo vo = new LikesService().selectOne(mcode);
 		
-		request.setAttribute("product", vo);
+		request.setAttribute("likes", vo);
 		String viewPath="/WEB-INF/view/member/usr/mypage.jsp";
 		request.getRequestDispatcher(viewPath).forward(request, response);
 	}

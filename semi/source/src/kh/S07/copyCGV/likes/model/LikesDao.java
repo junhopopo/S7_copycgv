@@ -36,8 +36,21 @@ public class LikesDao {
 		return result;
 	}
 //	delete  - 삭제
-	public int delete(Connection conn, String mcode) {
+	public int delete(Connection conn, LikesVo vo) {
 		int result = 0;
+		String sql = "delete from likes where moviecd = ? and mcode = ?";
+		PreparedStatement pstmt = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, vo.getMoviecd());
+			pstmt.setString(2, vo.getMcode());
+
+			result = pstmt.executeUpdate();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(pstmt);
+		}
 		return result;
 	}
 //	selectList  - 목록조회
@@ -92,5 +105,29 @@ public class LikesDao {
 		}
 
 		return vo;
+	}
+
+	public int isLike(Connection conn, String moviecd, String mcode){
+		int result = 0;
+		String sql = "select count(*) from LIKES where moviecd=? and mcode=?";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, moviecd);
+			pstmt.setString(2, mcode);
+			result = pstmt.executeUpdate();
+			
+			if(rs.next()){
+				result = rs.getInt("liked");
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(pstmt);
+		}
+		System.out.println(">>>>isLike Return:"+ result);
+		return result;
 	}
 }

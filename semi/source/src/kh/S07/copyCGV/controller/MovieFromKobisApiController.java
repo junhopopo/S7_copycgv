@@ -24,6 +24,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
+import kh.S07.copyCGV.movie.model.ActorVo;
+import kh.S07.copyCGV.movie.model.DirectorVo;
 import kh.S07.copyCGV.movie.model.MovieService;
 import kh.S07.copyCGV.movie.model.MovieVo;
 
@@ -71,7 +73,7 @@ public class MovieFromKobisApiController extends HttpServlet {
         
         // DB insert
         MovieService service = new MovieService();
-        int resutl = service.insert(movielist);
+        int result = service.insert(movielist);
 		
 		out.append("insert movie from Kobis API finish~~~~");
 		out.flush();
@@ -182,6 +184,99 @@ public class MovieFromKobisApiController extends HttpServlet {
 		        			}
 		        			break;
 		        		// TODO: 아래 감독, 배우, 제작사도 추가해주세요
+		        		case "companys":
+		        			Node companys = n.getFirstChild();
+		        			List<String> companylist = new ArrayList<String>();
+		        			while(companys != null) {
+		        				Node company = companys.getFirstChild();
+		        				String e = null;
+		        
+		        				while(company != null) {
+			        				Node cmp = company.getFirstChild();
+			        				String companyNodeName = company.getNodeName();
+			    	        		String companyText = company.getTextContent();
+			    	        		switch(companyNodeName) {
+			    	        		case "companyCd":
+			    	        			break;
+			    	        		case "companyNm":
+			    	        			e = companyText;
+			    	        			break;
+			    	        		case "companyNmEn":
+			    	        			break;
+			    	        		case "companyPartNm":
+			    	        			break;
+			    	        		}
+			    	        		company = company.getNextSibling();
+			        			}
+		        				companylist.add(e);
+		    	        		companys = companys.getNextSibling();
+		        			}
+		        			if(companylist.size()>0) {
+		        				vo.setCompanys(companylist);
+		        			}
+		        			break;
+		        		case "directors":
+		        			Node directors = n.getFirstChild();
+		        			List<DirectorVo> directorlist = new ArrayList<DirectorVo>();
+		        			while(directors != null) {
+		        				Node director = directors.getFirstChild();
+		        				DirectorVo e= new DirectorVo();
+		        				
+		        				while(director != null) {
+			        				Node person = director.getFirstChild();
+			    	        		String personNodeName = director.getNodeName();
+			    	        		String personText = director.getTextContent();
+			    	        		switch(personNodeName) {
+			    	        		case "peopleNm":
+			    	        			e.setDirectornm(personText);
+			    	        			break;
+			    	        		case "peopleNmEn":
+			    	        			e.setDirectornmen(personText);
+			    	        			break;
+			    	        		}
+			    	        		director = director.getNextSibling();
+			        			}
+		    	        		directorlist.add(e);
+		    	        		directors = directors.getNextSibling();
+		        			}
+		        			if(directorlist.size()>0) {
+		        				vo.setDirectors(directorlist);
+		        			}
+		        			break;
+		        		case "actors":
+		        			Node actors = n.getFirstChild();
+		        			List<ActorVo> actorlist = new ArrayList<ActorVo>();
+		        			while(actors != null) {
+		        				Node actor = actors.getFirstChild();
+		        				ActorVo e= new ActorVo();
+		        				
+//		        				Node act = actor.getFirstChild();
+//		        				e.setActornm(act.getTextContent());
+//		        				act = actor.getNextSibling();
+//		        				e.setActornmen(act.getTextContent());
+		        				while(actor != null) {
+			        				Node act = actor.getFirstChild();
+			        				String actNodeName = actor.getNodeName();
+			    	        		String actText = actor.getTextContent();
+			    	        		switch(actNodeName) {
+			    	        		case "peopleNm":
+			    	        			e.setActornm(actText);
+			    	        			break;
+			    	        		case "peopleNmEn":
+			    	        			e.setActornmen(actText);
+			    	        			break;
+			    	        		case "cast":
+			    	        			break;
+			    	        		}
+			    	        		actor = actor.getNextSibling();
+			        			}
+		        				actorlist.add(e);
+		    	        		actors = actors.getNextSibling();
+		        			}
+		        			if(actorlist.size()>0) {
+		        				vo.setActors(actorlist);
+		        			}
+		        			break;
 		        		}
 	        		}catch (Exception e) {
 						e.printStackTrace();

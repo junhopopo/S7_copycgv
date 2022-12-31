@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -42,7 +43,7 @@
 <%@include file="/WEB-INF/view/component/category.jsp"%>
 	</div>
     <div style="clear: both"></div>
-<[[[[[[[${movievo }]]]]]]]]
+[[[[[[[${movievo }]]]]]]]]
     <div id="contents" class="">
       <!-- 실컨텐츠 시작 -->
       <div class="wrap-movie-detail" id="select_main">
@@ -65,7 +66,7 @@
           </div>
           <div class="box-contents">
             <div class="title">
-              <strong>[[[[[[[[[${movienm }]]]]]]]]]]</strong>
+              <strong>${movievo.movienm }</strong>
               <em class="round lightblue"><span>현재상영중</span></em>
               <p>Black Panther: Wakanda Forever</p>
             </div>
@@ -132,8 +133,58 @@
                 프리에그</a
               >
 
-              <a class="link-reservation" href="#"><button>예매</button> </a>
+<c:choose>
+	<c:when test="${islike == 0}">
+            <button class="btn like" data-aaa="wishlike">좋아요</button>
+	</c:when>
+	<c:otherwise>
+			<button class="btn like" data-aaa="dislike">해제</button>
+	</c:otherwise>
+</c:choose>
             </span>
+<script >
+// 좋아요
+$(".btn.like").on("click", like);
+function like(){
+	var dataLike = $(this).data("aaa");
+	console.log(dataLike);
+	
+	$.ajax({
+	    url: "Likes.ajax",
+	    type: "POST",
+	    data: {like: dataLike, moviecd: '${movievo.moviecd }' },  
+	    success: 
+	    function(data){ 
+	    	console.log("결과는"+ data); //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
+	    	if(data == 1){
+		    	alert("'좋아요'가 반영되었습니다!") ;  // data중 put한 것의 이름 like
+		    	$(".btn.like").html("좋아요");
+		    	$(".btn.like").data("aaa", "dislike");
+	    	}else {
+	    		alert("'좋아요'가 해제되었습니다!") ;  // data중 put한 것의 이름 like
+	    		$(".btn.like").html("해제");
+	    		$(".btn.like").data("aaa", "wishlike");
+	    	}
+//            $("#like_result").html(data.like);  //id값이 like_result인 html을 찾아서 data.like값으로 바꿔준다.
+	    },   
+	    
+	    error: 
+	    function (request, status, error){  
+	      alert("ajax실패")                  
+	    }
+	  });
+}
+</script>
+            
+            <form id="like_form">
+				<table id="list">
+					<input type="hidden" name="command" value="like_it">
+					<input type="hidden" name="board_num" value="${board.num}">
+					<tr><input type="button" value="좋아요!" onclick="return like()" > </tr>
+					<tr><div id="like_result">${board.like_it}</div> </tr>
+				</table>
+			</form>
+            
           </div>
         </div>
         <!-- .sect-base -->

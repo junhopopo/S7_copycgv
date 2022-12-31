@@ -24,10 +24,10 @@ public class LikesService {
 		return result;
 	}
 //	delete  - 삭제
-	public int delete(String mcode) {
+	public int delete(LikesVo vo) {
 		int result = 0;
 		Connection conn = JdbcTemplate.getConnection();
-		result = dao.delete(conn, mcode);
+		result = dao.delete(conn, vo);
 		JdbcTemplate.close(conn);	
 		return result;
 	}
@@ -47,5 +47,12 @@ public class LikesService {
 		JdbcTemplate.close(conn);
 		return vo;
 	}
-
+// select count - 좋아요 여부 확인
+	public int isLike(String moviecd, String mcode){
+		int result = 0; // 0 disliked 1 liked
+		Connection conn = JdbcTemplate.getConnection();
+		result = dao.isLike(conn, moviecd, mcode);
+		JdbcTemplate.close(conn);
+		return result;
+	}
 }
