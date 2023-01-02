@@ -37,35 +37,6 @@ public class MovieDao {
 							+ " SHOWTM, OPENDT, TYPENM, NATIONS, CAST, "
 							+ " SHOWTYPES, AUDITS, POSTER) "
 				+ " VALUES (?,?,?,?,?, 		?,?,?,?,?,	?,?,?)";
-//		for(ActorVo a : vo.getActors()) {
-//			sql += " INTO ACTOR (ACTORCD, ACTORNM, ACTORNMEM) VALUES ((select nvl(max(ACTORCD),0)+1 from ACTOR),'"+a.getActornm()+"','"+a.getActornmen()+"')";
-//		}
-//		for(int i=0; i<vo.getDirectors().size(); i++) {
-//			sql += " INTO DIRECTOR (DIRECTORCD, DIRECTORNM, DIRECTORNMEM) VALUES (?,?,?)";
-//		}
-//		for(int i=0; i<vo.getCompanys().size(); i++) {
-//			sql += " INTO COMPANY (COMPANYNM) VALUES (?)";
-//		}
-//		for(int i=0; i<vo.getGenres().size(); i++) {
-//			sql += " INTO GENRE (GENRENM) VALUES (?)";
-//		}
-//		for(int i=0; i<vo.getActors().size(); i++) {
-//			sql += " INTO MVACTOR (ACTORCD, MOVIECD) VALUES (?,?)";
-//		}
-//		for(int i=0; i<vo.getDirectors().size(); i++) {
-//			sql += " INTO MVDIRECTOR (DIRECTORCD, MOVIECD) VALUES (?,?)";
-//		}
-//		for(int i=0; i<vo.getCompanys().size(); i++) {
-//			sql += " INTO MVCOMPANY (COMPANYNM, MOVIECD) VALUES (?,?)";
-//		}
-//		for(int i=0; i<vo.getGenres().size(); i++) {
-//			sql += " INTO MVGENRE (GENRENM, MOVIECD) VALUES (?,?)";
-//		}
-//		sql += "select * from dual";
-//		private List<ActorVo> actors;
-//		private List<DirectorVo> directors;
-//		private List<String> companys;
-//		private List<String> genres;
 		
 		PreparedStatement pstmt = null;
 		try {
@@ -108,7 +79,10 @@ public class MovieDao {
 //	selectList  - 목록조회
 	public List<MovieVo> selectList(Connection conn){
 		List<MovieVo> volist = null;
-		String query = "select MOVIECD, MOVIENM, MOVIENMEN, MOVIENMOG, PRDTYEAR, SHOWTM, OPENDT, TYPENM, NATIONS, CAST, SHOWTYPES, AUDITS, POSTER from movie";
+		String query = "select ";
+		query+= " (select count(*) from  likes where moviecd = tmv.moviecd) likecnt,";
+		query+= " MOVIECD, MOVIENM, MOVIENMEN, MOVIENMOG, PRDTYEAR, SHOWTM, OPENDT, TYPENM, NATIONS, CAST, SHOWTYPES, AUDITS, POSTER ";
+		query+= " from movie tmv";
 		PreparedStatement pstmt = null;
 		ResultSet rs = null;
 		try {
@@ -134,6 +108,9 @@ public class MovieDao {
 					vo.setAudits(rs.getString("Audits"));
 					vo.setPoster(rs.getString("Poster"));
 
+					// 좋아요 갯수
+					vo.setLikecnt(rs.getInt("likecnt"));
+					
 					volist.add(vo);
 				}while(rs.next());
 			}
@@ -456,4 +433,116 @@ public class MovieDao {
 		return result;
 	}
 	
+	
+// moviecd로 부터 감독이름 알아오기
+//	selectList  - 목록조회
+	public List<DirectorVo> selectDirectorList(Connection conn, String moviecd){
+		List<DirectorVo> volist = null;
+		String query = "select DirectorCD, DirectorNM, DirectorNMEN ";
+		query		+="    from director join (select * from  mvdirector where moviecd = ?) tmv using (directorcd) ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, moviecd);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				volist = new ArrayList<DirectorVo>();
+				do{
+					DirectorVo vo = new DirectorVo();
+					vo.setDirectorcd(rs.getString("DirectorCD"));
+					vo.setDirectornm(rs.getString("directornm"));
+					vo.setDirectornmen(rs.getString("directornmen"));
+					volist.add(vo);
+				}while(rs.next());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		return volist;
+	}
+	
+	public List<ActorVo> selectActorList(Connection conn, String moviecd){
+		List<ActorVo> volist = null;
+		String query = "select ActorCD, ActorNM, ActorNMEN ";
+		query		+="    from actor join (select * from  mvActor where moviecd = ?) tmv using (Actorcd) ";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			pstmt.setString(1, moviecd);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				volist = new ArrayList<ActorVo>();
+				do{
+					ActorVo vo = new ActorVo();
+					vo.setActorcd(rs.getString("ActorCD"));
+					vo.setActornm(rs.getString("ActorNM"));
+					vo.setActornmen(rs.getString("ActorNMEN"));
+					volist.add(vo);
+				}while(rs.next());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		return volist;
+	}
+	public List<MovieVo> selectSearchList(Connection conn, String directorcd, String actorcd){
+		List<MovieVo> volist = null;
+		String query = "select MOVIECD, MOVIENM, MOVIENMEN, MOVIENMOG, PRDTYEAR, SHOWTM, OPENDT, TYPENM, NATIONS, CAST, SHOWTYPES, AUDITS, POSTER ";
+		if(directorcd != null) {
+			query	+= " from movie where moviecd in (select moviecd from mvdirector where directorcd=?) ";
+		} else if(actorcd != null) {
+			query	+= " from movie where moviecd in (select moviecd from mvactor where actorcd=?) ";
+		} else {
+			query	+= " from movie";
+		}
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(query);
+			if(directorcd != null) {
+				pstmt.setString(1, directorcd );
+			} else if(actorcd != null) {
+				pstmt.setString(1, actorcd );
+			}
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				volist = new ArrayList<MovieVo>();
+				do{
+					MovieVo vo = new MovieVo();
+					vo.setMoviecd(rs.getString("moviecd"));
+					vo.setMovienm(rs.getString("MOVIENM"));
+					vo.setMovienmen(rs.getString("movienmen"));
+					vo.setMovienmog(rs.getString("movienmog"));
+					vo.setPrdtyear(rs.getInt("prdtyear"));
+					
+					vo.setShowtm(rs.getInt("Showtm"));
+					vo.setOpendt(rs.getInt("opendt"));
+					vo.setTypenm(rs.getString("typenm"));
+					vo.setNations(rs.getString("Nations"));
+					vo.setCast(rs.getString("Cast"));
+
+					vo.setShowtypes(rs.getString("Showtypes"));
+					vo.setAudits(rs.getString("Audits"));
+					vo.setPoster(rs.getString("Poster"));
+
+					volist.add(vo);
+				}while(rs.next());
+			}
+		}catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+		return volist;
+	}
+
 }

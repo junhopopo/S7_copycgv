@@ -114,11 +114,11 @@
 <%@include file="/WEB-INF/view/component/header.jsp"%>
 <%@include file="/WEB-INF/view/component/category.jsp"%>
 	</div>
-
+<br><br><br>
 		<!-- Contaniner -->
 		<div id="contaniner" class="">
 			<!-- Contents Area -->
-			<div id="contents" class="">
+			<div id="contents" class="" >
 				<!-- 실컨텐츠 시작 -->
 				<div class="wrap-login">
 					<div class="sect-login">
@@ -127,35 +127,35 @@
 							<li><a href="/user/guest/login-agreement.aspx">비회원 예매</a></li>
 							<li><a href="/user/guest/login.aspx">비회원 예매확인</a></li>
 						</ul>
-						<div class="box-login">
-							<h3 class="hidden">회원 로그인</h3>
-							<form id="form10" method="post" action="<%=request.getContextPath() %>/login.do" >
-								<fieldset>
-									<legend>회원 로그인</legend>
-									<p>아이디 비밀번호를 입력하신 후, 로그인 버튼을 클릭해 주세요.</p>
-									<div class="login">
-										<input type="text" title="아이디" id="txtUserId" name="memail"
-											data-title="아이디를 " data-message="입력하세요." required="required" />
-										<input type="password" title="패스워드" id="txtPassword"
-											name="mpwd" data-title="패스워드를 " data-message="입력하세요."
-											required="required" />
-									</div>
-									<div class="save-id">
-										<input type="checkbox" id="loginSet" /><label for="save_id">아이디
-											저장</label>
-									</div>
-
-
-									<button type="submit" id="submit" title="로그인">
-										<span>로그인</span>
-									</button>
-									<div class="login-option">
-										<a href="/user/login/find-account.aspx">아이디 찾기</a> <a
-											href="/user/login/find-pw.aspx?act=pw">비밀번호 찾기</a>
-									</div>
-								</fieldset>
-							</form>
-						</div>
+						<%-- <%= "hello expression tag" %>
+<br>
+${"Hello Expression Language" }
+<br>
+<% out.println("Hello out println");  %>
+<br>
+Hello HTML
+<br>
+<hr>
+<%= ((MemberVo)session.getAttribute("loginSsInfo")).getMemail() %>
+<br><br> --%>
+${sessionScope.loginSsInfo.memail}
+<br>
+<%-- <% out.println(session.getAttribute("loginSsInfo"));  %> --%>
+<!-- <br> -->
+<hr>
+<h1>로그인</h1>
+<br>
+<form action="<%=request.getContextPath() %>/login.do" method="post">
+	<fieldset>
+		<!-- <legend>로그인</legend> -->
+		id &nbsp;&nbsp;&nbsp;&nbsp;&nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="text" name="memail">
+		<br>
+		pwd &nbsp; : &nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="mpwd">
+		<br>
+		<br>
+		<button type="submit">로그인</button>
+	</fieldset>
+</form>
 					</div>
 				</div>
 				<!-- 실컨텐츠 끝 -->
@@ -170,7 +170,9 @@
 						name="returnURL" value="https://www.cgv.co.kr/default.aspx" />
 				</form>
 				<!-- //LogIn -->
-
+<br><br><br>
+			</div>
+		</div>
 <%@include file="/WEB-INF/view/component/footer.jsp"%>
 </body>
 </html>

@@ -2,7 +2,7 @@
     pageEncoding="UTF-8"%>
     <header>
       <div class="logo">
-        <a href="../main_display/main.jsp">
+        <a href="<%=request.getContextPath()%>/main">
           <img
             src="https://img.cgv.co.kr/R2014/images/common/logo/logoRed.png"
             width="130"
@@ -67,7 +67,7 @@
 					</c:choose>
 
             <li>
-              <a href="#"
+              <a href="<%=request.getContextPath()%>/likes"
                 ><img
                   src="https://img.cgv.co.kr/R2014/images/common/ico/loginMember.png"
                   width="45"

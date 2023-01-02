@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import common.jdbc.JdbcTemplate;
+import kh.S07.copyCGV.movie.model.MovieVo;
 
 public class LikesDao {
 //	insert - 등록
@@ -116,18 +117,60 @@ public class LikesDao {
 			pstmt = conn.prepareStatement(sql);
 			pstmt.setString(1, moviecd);
 			pstmt.setString(2, mcode);
-			result = pstmt.executeUpdate();
+			rs = pstmt.executeQuery();
 			
 			if(rs.next()){
-				result = rs.getInt("liked");
+				result = rs.getInt(1);
 			}
 			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
+			JdbcTemplate.close(rs);
 			JdbcTemplate.close(pstmt);
 		}
 		System.out.println(">>>>isLike Return:"+ result);
 		return result;
+	}
+	
+	public List<MovieVo> selectMyLikesList(Connection conn, String mcode){
+		List<MovieVo> volist = null;
+		String sql = "select * from movie join (select moviecd from  likes where mcode = ?) tmv using (moviecd)";
+		PreparedStatement pstmt = null;
+		ResultSet rs = null;
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setString(1, mcode);
+			rs = pstmt.executeQuery();
+			if(rs.next()) {
+				volist = new ArrayList<MovieVo>();
+				do {
+					MovieVo vo = new MovieVo();
+					vo.setMoviecd(rs.getString("moviecd"));
+					vo.setMovienm(rs.getString("MOVIENM"));
+					vo.setMovienmen(rs.getString("movienmen"));
+					vo.setMovienmog(rs.getString("movienmog"));
+					vo.setPrdtyear(rs.getInt("prdtyear"));
+					
+					vo.setShowtm(rs.getInt("Showtm"));
+					vo.setOpendt(rs.getInt("opendt"));
+					vo.setTypenm(rs.getString("typenm"));
+					vo.setNations(rs.getString("Nations"));
+					vo.setCast(rs.getString("Cast"));
+
+					vo.setShowtypes(rs.getString("Showtypes"));
+					vo.setAudits(rs.getString("Audits"));
+					vo.setPoster(rs.getString("Poster"));
+					volist.add(vo);
+				} while(rs.next());
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			JdbcTemplate.close(rs);
+			JdbcTemplate.close(pstmt);
+		}
+
+		return volist;
 	}
 }

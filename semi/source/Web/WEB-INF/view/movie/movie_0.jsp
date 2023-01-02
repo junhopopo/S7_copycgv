@@ -901,16 +901,16 @@
             // click event
             var val = $("#order_type").val(); // option 선택
             if (val) {
-              location.href = "movie_" + val + ".jsp"; // option 번호 넣기
+              location.href = "movie_" + val; // option 번호 넣기
             }
           });
 
           $("#chk_nowshow").click(function () {
             // 현재 상영작만 보기 checkbox
             if ($("input:checkbox[id='chk_nowshow']").is(":checked")) {
-              location.href = "movie_1.jsp"; // checkbox가 checked면
+              location.href = "movie_1"; // checkbox가 checked면
             } else {
-              location.href = "movie_0.jsp"; // checked가 아니라면
+              location.href = "movie_0"; // checked가 아니라면
             }
           });
         });

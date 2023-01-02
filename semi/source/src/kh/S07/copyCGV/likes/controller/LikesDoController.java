@@ -36,7 +36,7 @@ public class LikesDoController extends HttpServlet {
 		
 		MemberVo mvo = (MemberVo)request.getSession().getAttribute("loginSsInfo");
 		if(mvo == null) {
-			response.sendRedirect("login");
+			response.sendRedirect("/login");
 			return;
 		}
 		

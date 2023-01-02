@@ -9,22 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import kh.S07.copyCGV.likes.model.LikesService;
-import kh.S07.copyCGV.likes.model.LikesVo;
+import kh.S07.copyCGV.movie.model.DirectorVo;
 import kh.S07.copyCGV.movie.model.MovieService;
 import kh.S07.copyCGV.movie.model.MovieVo;
 
 /**
  * Servlet implementation class MainController
  */
-@WebServlet("/mypage")
-public class MyPageController extends HttpServlet {
+@WebServlet("/searchMovie")
+public class SearchMovieController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public MyPageController() {
+    public SearchMovieController() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,17 +32,22 @@ public class MyPageController extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-//		String moviecd = request.getParameter("moviecd");
-		String mcode = request.getParameter("mcode");
 		
-		System.out.println("/mypage 컨트롤러");
-//		System.out.println(moviecd);
-		System.out.println(mcode);
+//		List<DirectorVo> directorlist = new MovieService().selectDirectorList(moviecd);
+//		System.out.println("감독님들:"+directorlist);
+//		request.setAttribute("directorlist", directorlist);
 		
-		List<MovieVo> volist = new LikesService().selectMyLikesList(mcode);
-		System.out.println("######### my likes list\n"+volist);
+		String directorcd = request.getParameter("directorcd");
+		String actorcd = request.getParameter("actorcd");
+		
+		System.out.println("/searchMovie 컨트롤러");
+		System.out.println(directorcd);
+		System.out.println(actorcd);
+		
+		List<MovieVo> volist = new MovieService().selectSearchList(directorcd,  actorcd);
+		System.out.println("######### search movie list\n"+volist);
 		request.setAttribute("movielist", volist);
-//		String viewPage="/WEB-INF/view/movie/.jsp";
+		String viewPage="/WEB-INF/view/movie/searchmovie.jsp";
 		request.getRequestDispatcher(viewPage).forward(request, response);
 	}
 

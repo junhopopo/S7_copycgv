@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.util.List;
 
 import common.jdbc.JdbcTemplate;
+import kh.S07.copyCGV.movie.model.MovieVo;
 
 public class LikesService {
 	private LikesDao dao =  new LikesDao();
@@ -54,5 +55,13 @@ public class LikesService {
 		result = dao.isLike(conn, moviecd, mcode);
 		JdbcTemplate.close(conn);
 		return result;
+	}
+	
+	public List<MovieVo> selectMyLikesList(String mcode){
+		List<MovieVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectMyLikesList(conn, mcode);
+		JdbcTemplate.close(conn);
+		return volist;
 	}
 }

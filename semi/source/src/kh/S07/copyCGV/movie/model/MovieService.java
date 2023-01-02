@@ -128,6 +128,22 @@ public class MovieService {
 		return vo;
 	}
 	
+	public List<DirectorVo> selectDirectorList(String moviecd){
+		 List<DirectorVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectDirectorList(conn, moviecd);
+		JdbcTemplate.close(conn);
+		return volist;
+	}
+	
+	public List<ActorVo> selectActorList(String moviecd){
+		List<ActorVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectActorList(conn, moviecd);
+		JdbcTemplate.close(conn);
+		return volist;
+	}
+	
 	public MovieVo searchMovienm(String moviecd){
 		MovieVo vo = null;
 		Connection conn = JdbcTemplate.getConnection();
@@ -135,5 +151,12 @@ public class MovieService {
 		JdbcTemplate.close(conn);
 		return vo;
 	}
-
+//	selectList  - 목록조회
+	public List<MovieVo> selectSearchList(String directorcd, String actorcd){
+		List<MovieVo> volist = null;
+		Connection conn = JdbcTemplate.getConnection();
+		volist = dao.selectSearchList(conn,directorcd, actorcd );
+		JdbcTemplate.close(conn);
+		return volist;
+	}
 }

@@ -43,7 +43,8 @@
 <%@include file="/WEB-INF/view/component/category.jsp"%>
 	</div>
     <div style="clear: both"></div>
-[[[[[[[${movievo }]]]]]]]]
+<%-- [[[[[[[${movievo }]]]]]]]] --%>
+
     <div id="contents" class="">
       <!-- 실컨텐츠 시작 -->
       <div class="wrap-movie-detail" id="select_main">
@@ -53,7 +54,7 @@
             <a href="#" title="포스터 크게 보기 새창" target="_blank">
               <span class="thumb-image">
                 <img
-                  src="https://img.cgv.co.kr/Movie/Thumbnail/Poster/000086/86119/86119_320.jpg"
+                  src="https://dummyimage.com/170x234/f2f259/1d1e26"
                   alt="블랙 팬서-와칸다 포에버 포스터 새창"
                   onerror="errorImage(this)"
                 />
@@ -79,34 +80,29 @@
             <div class="spec">
               <dl>
                 <dt>감독 :&nbsp;</dt>
-                <dd>
-                  <a href="#">라이언 쿠글러</a>
+                <dd class="on">
+                <c:forEach items="${directorlist }" var="director" varStatus="stt">
+						<a href="<%=request.getContextPath()%>/searchMovie?directorcd=${director.directorcd}">${director.directornm }(${director.directornmen })</a>
+						<c:if test="${directorlist.size() != stt.count}">
+						,&nbsp;&nbsp;
+						</c:if>
+				</c:forEach>
                 </dd>
                 <dd></dd>
                 <dt>&nbsp;/ 배우 :&nbsp;</dt>
                 <dd class="on">
-                  <a href="#">레티티아 라이트</a>
-                  ,&nbsp;
-                  <a href="#">루피타 뇽오</a>
-                  ,&nbsp;
-                  <a href="#">다나이 구리라</a>
-                  ,&nbsp;
-                  <a href="#">안젤라 바셋</a>
-                  ,&nbsp;
-                  <a href="#">테노치 우에르타 메히아</a>
-                  ,&nbsp;
-                  <a href="#">윈스턴 듀크</a>
-                  ,&nbsp;
-                  <a href="#">마틴 프리먼</a>
-                  ,&nbsp;
-                  <a href="#">도미니크 손</a>
+				<c:forEach items="${actorlist }" var="actor" varStatus="stt">
+						<a href="<%=request.getContextPath()%>/searchMovie?actorcd=${actor.actorcd}">${actor.actornm }(${actor.actornmen })</a>
+						<c:if test="${actorlist.size() != stt.count}">
+						,&nbsp;&nbsp;
+						</c:if>
+				</c:forEach>
                 </dd>
-                <dt>장르 :&nbsp;액션</dt>
                 <dd></dd>
-                <dt>&nbsp;/ 기본 :&nbsp;</dt>
-                <dd class="on">12,&nbsp;161분,&nbsp;미국</dd>
+                <dt>기본 :&nbsp;</dt>
+                <dd class="on">${movievo.showtm }분</dd>
                 <dt>개봉 :&nbsp;</dt>
-                <dd class="on">2022.11.09</dd>
+                <dd class="on">${movievo.opendt }</dd>
               </dl>
             </div>
             <span class="screentype">
@@ -127,11 +123,11 @@
             </span>
             <span class="like">
               <!-- 2020.05.07 영화찜하기 -> 프리에그 선택 변경(조회하여 노출) -->
-              <a class="link-count" href="#" style="position: relative"
+              <!-- <a class="link-count" href="#" style="position: relative"
                 ><i class="sprite_preegg btn_md default"></i>
                 <img src="../../images/egg.jpeg" alt="" />
                 프리에그</a
-              >
+              > -->
 
 <c:choose>
 	<c:when test="${islike == 0}">
@@ -158,11 +154,11 @@ function like(){
 	    	console.log("결과는"+ data); //ajax통신 성공시 넘어오는 데이터 통째 이름 =data
 	    	if(data == 1){
 		    	alert("'좋아요'가 반영되었습니다!") ;  // data중 put한 것의 이름 like
-		    	$(".btn.like").html("좋아요");
+		    	$(".btn.like").html("해제");
 		    	$(".btn.like").data("aaa", "dislike");
 	    	}else {
 	    		alert("'좋아요'가 해제되었습니다!") ;  // data중 put한 것의 이름 like
-	    		$(".btn.like").html("해제");
+	    		$(".btn.like").html("좋아요");
 	    		$(".btn.like").data("aaa", "wishlike");
 	    	}
 //            $("#like_result").html(data.like);  //id값이 like_result인 html을 찾아서 data.like값으로 바꿔준다.
@@ -170,20 +166,21 @@ function like(){
 	    
 	    error: 
 	    function (request, status, error){  
-	      alert("ajax실패")                  
+	      alert("로그인 후 가능합니다");  
+	      window.location.href = "login";
 	    }
 	  });
 }
 </script>
             
-            <form id="like_form">
+           <%--  <form id="like_form">
 				<table id="list">
 					<input type="hidden" name="command" value="like_it">
 					<input type="hidden" name="board_num" value="${board.num}">
 					<tr><input type="button" value="좋아요!" onclick="return like()" > </tr>
 					<tr><div id="like_result">${board.like_it}</div> </tr>
 				</table>
-			</form>
+			</form> --%>
             
           </div>
         </div>
@@ -277,12 +274,11 @@ function like(){
               &#39;와칸다&#39;를 향해 무차별 공격을 퍼붓기 시작하는데&hellip;<br />
               &nbsp;
             </div>
+            
             <!-- .sect-story -->
             <!-- 2020.05.07 성별예매분포, 연령별예매분포 UI 변경 -->
-            <div
-              id="ctl00_PlaceHolderContent_Section_Chart"
-              class="sect-graph sect-graph-emotion"
-            >
+           	<!--
+            <div id="ctl00_PlaceHolderContent_Section_Chart" class="sect-graph sect-graph-emotion">
               <ul class="graph">
                 <li>
                   <strong>성별 예매 분포</strong>
@@ -294,11 +290,14 @@ function like(){
                 </li>
               </ul>
             </div>
+			-->
             <!-- .sect-graph -->
           </div>
         </div>
       </div>
     </div>
+    
+    <!--
     <div class="trailer_wrap">
       <div id="Content_Section_Trailer" class="sect-trailer">
         <div class="heading">
@@ -758,5 +757,7 @@ function like(){
         },
       });
     </script>
+    -->
+    <%@include file="/WEB-INF/view/component/footer.jsp"%>
   </body>
 </html>

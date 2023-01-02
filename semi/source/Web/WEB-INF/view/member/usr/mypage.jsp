@@ -21,6 +21,13 @@
 		<%@include file="/WEB-INF/view/component/category.jsp"%>
 	</div>
 	<br><h1>MY Page</h1><br>
+	<%-- [[${likesmovielist }]] --%>
+	<br>
+	<c:forEach items="${likesmovielist }" var="like" varStatus="stt">
+		<img src="https://dummyimage.com/170x234/f2f259/1d1e26" />
+		<strong class="movieName">${like.movienm }</strong>
+	</c:forEach>
+	<br><br><br>
 	<%@include file="/WEB-INF/view/component/footer.jsp"%>
 </body>
 </html>

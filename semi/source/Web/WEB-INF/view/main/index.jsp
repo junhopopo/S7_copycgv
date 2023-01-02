@@ -131,11 +131,11 @@
 						<h3>
 							<a href="#" class="active" id="btnMovie">무비차트</a>
 						</h3>
-						<h3>
+						<!-- <h3>
 							<a href="#" id="btnReserMovie">상영예정작</a>
-						</h3>
+						</h3> -->
 					</div>
-					<a href="../movie/movie_0.jsp" id="btn_allView_Movie"
+					<a href="<%=request.getContextPath()%>/movie_0" id="btn_allView_Movie"
 						class="btn_allView">전체보기</a>
 				</div>
 
@@ -175,7 +175,7 @@
 							<div class="movie_info_wrap">
 								<strong class="movieName">${vo.movienm }</strong> <span> <img
 									src="https://img.cgv.co.kr/R2014/images/common/egg/eggGoldenegggood.png"
-									alt="Golden Egg Preegg" /> 84%
+									alt="Golden Egg Preegg" /> ${vo.likecnt }
 								</span> <span>예매율 35.7%</span>
 							</div>
 						</div>
@@ -186,6 +186,12 @@
 					<div class="swiper-button-next"></div>
 					<div class="swiper-button-prev"></div>
 				</div>
+			</div>
+		</div>
+	</div>
+				
+				<!--  -->				
+				<!--
 				<div class="swiper movieChart_list" id="movieChart_list_Reser">
 					<div class="swiper-wrapper">
 						<div class="swiper-slide">
@@ -902,7 +908,8 @@
 			</div>
 		</div>
 	</div>
-
+	-->
+	<!--  -->
 <%@include file="/WEB-INF/view/component/footer.jsp"%>
 </body>
 </html>
